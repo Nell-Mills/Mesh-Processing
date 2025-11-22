@@ -38,38 +38,27 @@ typedef struct
 
 typedef struct
 {
-	uint16_t p[3];
-	uint16_t n[3];
-	uint16_t c[3];
-	uint16_t u[3];
+	uint32_t p[3];
+	uint32_t n[3];
+	uint32_t c[3];
+	uint32_t u[3];
 } mp_face_t;
-
-typedef struct
-{
-	char name[NM_MAX_NAME_LENGTH];
-
-	uint16_t num_vertices;
-	int32_t vertex_offset;
-
-	uint32_t num_faces[NM_MAX_LOD_LEVELS];
-	uint32_t face_offsets[NM_MAX_LOD_LEVELS];
-} mp_mesh_gpu_t;
 
 typedef struct
 {
 	char name[NM_MAX_NAME_LENGTH];
 	char path[NM_MAX_PATH_LENGTH];
 
-	uint16_t num_vertices;
+	uint32_t num_vertices;
 	mp_position_t *vertices;
 
-	uint16_t num_normals;
+	uint32_t num_normals;
 	mp_normal_t *normals;
 
-	uint16_t num_colours;
+	uint32_t num_colours;
 	mp_colour_t *colours;
 
-	uint16_t num_uv_coordinates;
+	uint32_t num_uv_coordinates;
 	mp_uv_t *uv_coordinates;
 
 	uint8_t num_lod_levels;

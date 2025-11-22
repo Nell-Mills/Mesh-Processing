@@ -96,16 +96,16 @@ void mp_mesh_print(FILE *file, mp_mesh_t *mesh)
 
 	fprintf(file, "\n");
 
-	fprintf(file, "Number of vertices: %d\n", mesh->num_vertices);
-	fprintf(file, "Number of normals: %d\n", mesh->num_normals);
-	fprintf(file, "Number of colours: %d\n", mesh->num_colours);
-	fprintf(file, "Number of UV coordinates: %d\n", mesh->num_uv_coordinates);
+	fprintf(file, "Number of vertices: %u\n", mesh->num_vertices);
+	fprintf(file, "Number of normals: %u\n", mesh->num_normals);
+	fprintf(file, "Number of colours: %u\n", mesh->num_colours);
+	fprintf(file, "Number of UV coordinates: %u\n", mesh->num_uv_coordinates);
 	fprintf(file, "Number of faces: ");
 	for (int i = 0; i < (mesh->num_lod_levels - 1); i++)
 	{
-		fprintf(file, "%d, ", mesh->num_faces[i]);
+		fprintf(file, "%u, ", mesh->num_faces[i]);
 	}
-	fprintf(file, "%d\n", mesh->num_faces[mesh->num_lod_levels - 1]);
+	fprintf(file, "%u\n", mesh->num_faces[mesh->num_lod_levels - 1]);
 
 	if ((mesh->num_faces[0] > 0) && mesh->vertices && mesh->faces[0])
 	{
@@ -115,20 +115,20 @@ void mp_mesh_print(FILE *file, mp_mesh_t *mesh)
 		for (int i = 0; i < 3; i++)
 		{
 			fprintf(file, "Vertex %d:\n", i);
-			fprintf(file, "--> Position %d: %f, %f, %f\n", mesh->faces[0][0].p[i],
+			fprintf(file, "--> Position %u: %f, %f, %f\n", mesh->faces[0][0].p[i],
 				mesh->vertices[mesh->faces[0][0].p[i]].x,
 				mesh->vertices[mesh->faces[0][0].p[i]].y,
 				mesh->vertices[mesh->faces[0][0].p[i]].z);
-			fprintf(file, "--> Normal %d: %d, %d, %d\n", mesh->faces[0][0].n[i],
+			fprintf(file, "--> Normal %u: %d, %d, %d\n", mesh->faces[0][0].n[i],
 				mesh->normals[mesh->faces[0][0].n[i]].x,
 				mesh->normals[mesh->faces[0][0].n[i]].y,
 				mesh->normals[mesh->faces[0][0].n[i]].z);
-			fprintf(file, "--> Colour %d: %d, %d, %d, %d\n", mesh->faces[0][0].c[i],
+			fprintf(file, "--> Colour %u: %u, %u, %u, %u\n", mesh->faces[0][0].c[i],
 				mesh->colours[mesh->faces[0][0].c[i]].r,
 				mesh->colours[mesh->faces[0][0].c[i]].g,
 				mesh->colours[mesh->faces[0][0].c[i]].b,
 				mesh->colours[mesh->faces[0][0].c[i]].a);
-			fprintf(file, "--> UV coordinates %d: %f, %f\n", mesh->faces[0][0].u[i],
+			fprintf(file, "--> UV coordinates %u: %f, %f\n", mesh->faces[0][0].u[i],
 				mesh->uv_coordinates[mesh->faces[0][0].u[i]].u,
 				mesh->uv_coordinates[mesh->faces[0][0].u[i]].v);
 		}
