@@ -19,7 +19,7 @@ CC	:= gcc -std=c99 -Wall -Wextra -Wno-unused-parameter
 OUT	:= -o Mesh-Processing
 MAIN	:= Mesh-Processing.c
 DEPS	:= $(DEPS_PROJECT) $(DEPS_THIRD_PARTY)
-CFLAGS	:= -I Include
+CFLAGS	:= -I Include -fopenmp
 LFLAGS	:= -lSDL2
 DEFINES	:=
 DEBUG	:= -D MP_DEBUG -g -O0

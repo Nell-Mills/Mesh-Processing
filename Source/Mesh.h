@@ -38,6 +38,15 @@ typedef struct
 
 typedef struct
 {
+	uint32_t v_1;
+	uint32_t v_2;
+	int64_t next;
+	int64_t other_half;
+	uint32_t face;
+} mp_edge_t;
+
+typedef struct
+{
 	uint32_t p[3];
 	uint32_t n[3];
 	uint32_t c[3];
@@ -61,6 +70,10 @@ typedef struct
 	uint32_t num_uv_coordinates;
 	mp_uv_t *uv_coordinates;
 
+	int64_t num_edges;
+	mp_edge_t *edges;
+	int64_t *first_edge;	// Per vertex.
+
 	uint8_t num_lod_levels;
 	uint32_t num_faces[NM_MAX_LOD_LEVELS];
 	mp_face_t *faces[NM_MAX_LOD_LEVELS];
@@ -69,6 +82,8 @@ typedef struct
 mp_mesh_t mp_mesh_initialise();
 int mp_mesh_allocate(mp_mesh_t *mesh, char error_message[NM_MAX_ERROR_LENGTH]);
 void mp_mesh_free(mp_mesh_t *mesh);
+int mp_mesh_calculate_edges(mp_mesh_t *mesh, char error_message[NM_MAX_ERROR_LENGTH]);
+void mp_mesh_free_edges(mp_mesh_t *mesh);
 
 #ifdef MP_DEBUG
 void mp_mesh_print(FILE *file, mp_mesh_t *mesh);

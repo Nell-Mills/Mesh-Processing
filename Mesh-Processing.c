@@ -15,6 +15,7 @@ int main(int argc, char **argv)
 	if (argc > 1) { strcpy(mesh.path, argv[1]); }
 	else { strcpy(mesh.path, "Meshes/stanford-bunny.obj"); }
 	if (mp_load_obj(&mesh, error_message)) { goto error; }
+	if (mp_mesh_calculate_edges(&mesh, error_message)) { goto error; }
 
 	#ifdef MP_DEBUG
 	mp_mesh_print(stdout, &mesh);
