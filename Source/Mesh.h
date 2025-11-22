@@ -1,0 +1,88 @@
+#ifndef MP_MESH_H
+#define MP_MESH_H
+
+#include <NM-Config/Config.h>
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct
+{
+	float x;
+	float y;
+	float z;
+} mp_position_t;
+
+typedef struct
+{
+	int8_t x;
+	int8_t y;
+	int8_t z;
+} mp_normal_t;
+
+typedef struct
+{
+	uint8_t r;
+	uint8_t g;
+	uint8_t b;
+	uint8_t a;
+} mp_colour_t;
+
+typedef struct
+{
+	float u;
+	float v;
+} mp_uv_t;
+
+typedef struct
+{
+	uint16_t p[3];
+	uint16_t n[3];
+	uint16_t c[3];
+	uint16_t u[3];
+} mp_face_t;
+
+typedef struct
+{
+	char name[NM_MAX_NAME_LENGTH];
+
+	uint16_t num_vertices;
+	int32_t vertex_offset;
+
+	uint32_t num_faces[NM_MAX_LOD_LEVELS];
+	uint32_t face_offsets[NM_MAX_LOD_LEVELS];
+} mp_mesh_gpu_t;
+
+typedef struct
+{
+	char name[NM_MAX_NAME_LENGTH];
+	char path[NM_MAX_PATH_LENGTH];
+
+	uint16_t num_vertices;
+	mp_position_t *vertices;
+
+	uint16_t num_normals;
+	mp_normal_t *normals;
+
+	uint16_t num_colours;
+	mp_colour_t *colours;
+
+	uint16_t num_uv_coordinates;
+	mp_uv_t *uv_coordinates;
+
+	uint8_t num_lod_levels;
+	uint32_t num_faces[NM_MAX_LOD_LEVELS];
+	mp_face_t *faces[NM_MAX_LOD_LEVELS];
+} mp_mesh_t;
+
+mp_mesh_t mp_mesh_initialise();
+int mp_mesh_allocate(mp_mesh_t *mesh, char error_message[NM_MAX_ERROR_LENGTH]);
+void mp_mesh_free(mp_mesh_t *mesh);
+
+#ifdef MP_DEBUG
+void mp_mesh_print(FILE *file, mp_mesh_t *mesh);
+#endif
+
+#endif
