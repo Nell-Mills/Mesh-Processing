@@ -1,6 +1,19 @@
 #include "Mesh-Loader.h"
 
-int mp_load_obj(mp_mesh_t *mesh, char error_message[NM_MAX_ERROR_LENGTH])
+int mp_mesh_load(mp_mesh_t *mesh, char *name, char *path, char error_message[NM_MAX_ERROR_LENGTH])
+{
+	*mesh = mp_mesh_initialise();
+	strcpy(mesh->name, name);
+	strcpy(mesh->path, path);
+	if (mp_mesh_load_obj(mesh, error_message))
+	{
+		mp_mesh_free(mesh);
+		return -1;
+	}
+	return 0;
+}
+
+int mp_mesh_load_obj(mp_mesh_t *mesh, char error_message[NM_MAX_ERROR_LENGTH])
 {
 	tinyobj_attrib_t attrib;
 	tinyobj_shape_t *shapes = NULL;
