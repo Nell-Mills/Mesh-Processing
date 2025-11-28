@@ -215,6 +215,7 @@ uint32_t mp_mesh_triangle_fan_check(mp_mesh_t *mesh, uint32_t vertex, uint32_t v
 {
 	uint32_t triangles_left = vertex_degree - 1; // Account for first triangle.
 
+	uint32_t first_edge = mesh->first_edge[vertex];
 	int64_t current_edge = mesh->first_edge[vertex];
 	while (1)
 	{
@@ -235,6 +236,7 @@ uint32_t mp_mesh_triangle_fan_check(mp_mesh_t *mesh, uint32_t vertex, uint32_t v
 		current_edge = mesh->first_edge[vertex];
 		while(1)
 		{
+			first_edge = current_edge;
 			current_edge = mesh->edges[current_edge].other_half;
 			if (current_edge == -1) { break; }
 			current_edge = mesh->edges[current_edge].next;
@@ -246,6 +248,9 @@ uint32_t mp_mesh_triangle_fan_check(mp_mesh_t *mesh, uint32_t vertex, uint32_t v
 			triangles_left--;
 		}
 	}
+
+	// Change first edge from vertex to actual first edge in fan (if boundary):
+	if (current_edge == -1) { mesh->first_edge[vertex] = first_edge; }
 
 	return triangles_left;
 }
